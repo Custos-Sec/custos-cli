@@ -1,0 +1,19 @@
+{
+  "jsonrpc": "2.0",
+  "result": [
+    {
+      "mint": "EPjFWaLb3hyccuBAbYbyrFfr1H34kimZweDKVKLto1o",
+      "onChainData": {
+        "name": "Loyalty Token (John Doe)", 
+        "symbol": "LOYAL",
+        "uri": "https://arweave.net/metadata.json"
+      },
+      "offChainData": {
+        "name": "Loyalty Token",
+        "description": "Internal Email: ex-user@oldmail.com", 
+        "attributes": []
+      }
+    }
+  ],
+  "id": "helius-token-metadata"
+}

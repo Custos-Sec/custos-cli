@@ -1,0 +1,40 @@
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "context": { "slot": 204850123 },
+    "value": [
+      {
+        "lamports": 500000000,
+        "owner": "YourProgramID11111111111111111111111111111",
+        "data": [
+          "dXNlcjpkZXZlbG9wZXJAZ21haWwuY29tLHBhc3M6U3VwZXJTZWNyZXQxMjMsc2tfbGl2ZV81MWh6dzlBczI4ampzMDFrYmx3cW9wbG9scW93",
+          "base64"
+        ],
+        "executable": false,
+        "rentEpoch": 320
+      },
+      {
+        "lamports": 1000000000,
+        "owner": "YourProgramID11111111111111111111111111111",
+        "data": [
+          "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+          "base64"
+        ],
+        "executable": false,
+        "rentEpoch": 320
+      },
+      {
+        "lamports": 2000000,
+        "owner": "11111111111111111111111111111111",
+        "data": [
+          "YmFkX2FjY291bnRfdHlwZV9jb3NwbGF5",
+          "base64"
+        ],
+        "executable": false,
+        "rentEpoch": 0
+      },
+      null
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+[
+  {
+    "accountData": [],
+    "description": "User swapped 10 SOL for USDC",
+    "events": {},
+    "fee": 5000,
+    "feePayer": "Adress FeePayer example",
+    "instructions": [
+      {
+        "accounts": ["Acc1", "Acc2"],
+        "data": "5Kb8kX...Mnemonic: apple banana cherry dragon elephant",
+        "programId": "C0nArtistProgram1111111111111111111111111"
+      }
+    ],
+    "nativeTransfers": [],
+    "signature": "5hS7p8xK2mL9vQ4rT6wN3bY8jF2cP5qR9sX1zH3mL7vT2xW4yK8nP1qR5sT9vW2xY3zB6cE9dF3gH7iK1lM5nP9q",
+    "slot": 12345678,
+    "source": "PHANTOM",
+    "timestamp": 1672531200,
+    "tokenTransfers": [],
+    "transactionError": null,
+    "type": "SWAP",
+    "rawLogs": [
+      "Program C0nArtistProgram1111111111111111111111111 invoke [1]",
+      "Private_Key_Hex: 0x4a5f8b2c9d1e3a4f6b8c0d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f",
+      "Program log: Instruction executed successfully",
+      "DB_PASSWORD=admin123superSecret",
+      "Stale data detected for User #9",
+      "Suspicious program invocation: TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "Program C0nArtistProgram1111111111111111111111111 consumed 50000 compute units",
+      "Program C0nArtistProgram1111111111111111111111111 success"
+    ]
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "context": { "slot": 204850123 },
+    "value": {
+      "lamports": 1000000000,
+      "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "data": [
+        "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABTU046IDY2Ni00NC0xMjM0LCBFbWFpbDogYWRtaW5AbGVhay5jb20sIFNUUklQRV9LRVk6IHNrX2xpdmVfNUFzMjhqczAxa2Jsd3Fv",
+        "base64"
+      ],
+      "executable": false,
+      "rentEpoch": 320,
+      "space": 128
+    }
+  }
+}

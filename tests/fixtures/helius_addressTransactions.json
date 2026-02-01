@@ -1,0 +1,22 @@
+[
+  {
+    "signature": "5hS7p3x9W...",
+    "blockTime": 1700000000,
+    "instructions": [
+      {
+        "programId": "UnknownCpiProgram1111111111111111111111111",
+        "data": "2v69vXJpTrWK", 
+        "parsed": null
+      }
+    ],
+    "logs": [
+      "Program log: Instruction: CreateUser",
+      "Program log: emit: UserCreated { email: 'victim_ssn_666-44-1111@leak.com', phone: '+1-555-0199', token: 'sk_live_HeliusBadData' }",
+      "Program log: debug: value = 42",
+      "Program log: dbg! internal_vault_key: [23, 44, 12, 99, 101]",
+      "Program log: initialized account SomeAddress11111111111111111111111",
+      "Program log: WARNING: Account SomeAddress... has no Anchor discriminator",
+      "Program log: Derived PDA with predictable seed: 'user_account_1'"
+    ]
+  }
+]

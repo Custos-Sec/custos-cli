@@ -1,0 +1,43 @@
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "total": 1000,
+    "limit": 1,
+    "page": 1,
+    "items": [
+      {
+        "interface": "ProgrammableNFT",
+        "id": "User_Asset_00042", 
+        "content": {
+          "$schema": "https://schema.helius.xyz/v0/content.json",
+          "json_uri": "https://arweave.net/debug_true_raw_log_IP_178.221.34.5", 
+          "metadata": {
+            "name": "Mystery NFT",
+            "symbol": "MYSTERY",
+            "debug_mode": "true" 
+          }
+        },
+        "authorities": [
+          {
+            "address": "Admin_Wallet_11111111111111111111111",
+            "scopes": ["full_control"]
+          }
+        ],
+        "ownership": {
+          "frozen": false,
+          "delegated": true,
+          "delegate": "Unknown_Address_22222222222222222222", 
+          "owner": "User_Address_9B5X32gkjH2c3K7mL4nP9qR1sT5uV"
+        },
+        "creators": [
+          {
+            "address": "Unknown_Address_22222222222222222222",
+            "verified": false,
+            "share": 100
+          }
+        ]
+      }
+    ]
+  },
+  "id": "helius-search-assets"
+}

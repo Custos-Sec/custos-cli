@@ -1,0 +1,46 @@
+# Build artifacts
+/target/
+**/*.rs.bk
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Internal/private docs (not for public repo)
+HACKATHON_STRATEGY.md
+INTERNAL_*.md
+*_INTERNAL.md
+.notes/
+notes.md
+
+# Environment and secrets
+.env
+.env.*
+*.pem
+*.key
+secrets/
+credentials/
+
+# API keys (never commit these)
+helius.key
+api_keys.txt
+
+# Test artifacts
+*.log
+test-output/
+
+# Temporary files
+*.tmp
+*.temp
+*.txt
+!README.txt
+!LICENSE.txt
+.cache/
+

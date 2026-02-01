@@ -1,0 +1,26 @@
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": [
+    {
+      "pubkey": "PDA_User_Account_001_1111111111111111111111",
+      "account": {
+        "lamports": 1000000,
+        "owner": "YourProgramID11111111111111111111111111111",
+        "data": ["dXNlcjFAZXhhbXBsZS5jb206U1NOLTAwMC0xMS0yMjIyOkFQSV9LRVlfQUJDMTEyMg==", "base64"],
+        "executable": false,
+        "rentEpoch": 0
+      }
+    },
+    {
+      "pubkey": "PDA_User_Account_002_2222222222222222222222",
+      "account": {
+        "lamports": 1000000,
+        "owner": "YourProgramID11111111111111111111111111111",
+        "data": ["dXNlcjJAZXhhbXBsZS5jb206U1NOLTAwMC0xMS0zMzMzOkFQSV9LRVlfWFlaMzM0NA==", "base64"],
+        "executable": false,
+        "rentEpoch": 0
+      }
+    }
+  ]
+}
