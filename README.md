@@ -13,7 +13,7 @@ The Solana ecosystem has lost over **$500 million** to a single class of vulnera
 | **Wormhole** (Feb 2022) | $326M | Missing discriminator check on guardian accounts |
 | **Mango Markets** (Oct 2022) | $114M | Unvalidated oracle accounts manipulated |
 | **Cashio** (Mar 2022) | $52M | Fake collateral accounts accepted without validation |
-| **Crema Finance** (Jul 2022) | $8.8M | Uninitialized tick accounts exploited |
+
 
 **Custos detects these patterns before you deploy.**
 
