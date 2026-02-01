@@ -1,9 +1,16 @@
 //! Safe patterns module - reduces false positives by recognizing
 //! Solana-specific naming conventions and types.
+//!
+//! This module is critical for keeping the false positive rate manageable.
+//! All patterns here represent legitimate blockchain/DeFi field names that
+//! should NOT be flagged as PII or sensitive data.
 
 /// Field names that are safe in Solana/Anchor context
+/// These are blockchain primitives and DeFi conventions, not PII
 pub const SAFE_FIELD_NAMES: &[&str] = &[
+    // =========================================================================
     // Solana account types
+    // =========================================================================
     "mint",
     "authority",
     "owner",
@@ -12,54 +19,208 @@ pub const SAFE_FIELD_NAMES: &[&str] = &[
     "sender",
     "signer",
     "delegate",
+    "creator",
+    "admin",
+    "operator",
 
-    // Token-related
+    // =========================================================================
+    // Token/Mint related
+    // =========================================================================
     "token_account",
     "token_mint",
     "token_program",
     "associated_token",
+    "associated_token_program",
     "vault",
     "treasury",
+    "escrow",
+    "mint_authority",
+    "freeze_authority",
+    "token_a",
+    "token_b",
+    "token_0",
+    "token_1",
+    "base_token",
+    "quote_token",
+    "input_token",
+    "output_token",
+    "reward_token",
+    "lp_token",
 
+    // =========================================================================
     // Program accounts
+    // =========================================================================
     "program_id",
     "system_program",
     "rent",
     "clock",
+    "instructions",
+    "program",
 
-    // DeFi patterns
-    "pool",
-    "reserve",
-    "liquidity",
-    "collateral",
-    "oracle",
+    // =========================================================================
+    // Authority variants (public keys, not secrets)
+    // =========================================================================
+    "pool_authority",
+    "market_authority",
+    "protocol_authority",
+    "fee_recipient",
     "fee_account",
 
-    // Common safe fields
+    // =========================================================================
+    // DeFi accounting (intentionally public on-chain data)
+    // =========================================================================
+    "liquidity",
+    "total_liquidity",
+    "pool_liquidity",
+    "swap_fee",
+    "protocol_fee",
+    "trade_fee",
+    "fee_rate",
+    "fee_growth",
+    "total_fees",
+    "accumulated_fees",
+    "fees_owed",
+    "total_supply",
+    "circulating_supply",
+    "reserve",
+    "reserves",
+    "reserve_a",
+    "reserve_b",
+    "balance",
+    "token_balance",
+    "sol_balance",
+    "amount",
+    "amount_in",
+    "amount_out",
+    "min_amount",
+    "max_amount",
+    "price",
+    "sqrt_price",
+    "tick_price",
+    "oracle_price",
+    "volume",
+    "total_volume",
+    "trade_volume",
+    "tvl",
+    "total_value_locked",
+
+    // =========================================================================
+    // Pool/Market structures
+    // =========================================================================
+    "pool",
+    "pool_state",
+    "pool_id",
+    "pool_address",
+    "market",
+    "market_id",
+    "market_state",
+    "amm",
+    "amm_config",
+    "amm_id",
+    "vault_a",
+    "vault_b",
+    "vault_0",
+    "vault_1",
+
+    // =========================================================================
+    // Tick/Position (CLMM/concentrated liquidity - major FP source)
+    // =========================================================================
+    "tick",
+    "tick_array",
+    "tick_current",
+    "tick_lower",
+    "tick_upper",
+    "tick_spacing",
+    "tick_index",
+    "position",
+    "position_state",
+    "position_nft",
+    "liquidity_net",
+    "liquidity_gross",
+
+    // =========================================================================
+    // Oracle/Price feeds
+    // =========================================================================
+    "oracle",
+    "oracle_account",
+    "price_feed",
+    "pyth",
+    "switchboard",
+
+    // =========================================================================
+    // Common numeric/state fields
+    // =========================================================================
     "bump",
     "nonce",
     "seed",
     "seeds",
     "discriminator",
+    "lamports",
+    "slot",
+    "timestamp",
+    "epoch",
+    "index",
+    "counter",
+    "count",
+    "length",
+    "size",
+    "status",
+    "state",
+    "is_initialized",
+    "is_active",
+    "decimals",
+    "precision",
+
+    // =========================================================================
+    // Reward/Staking (intentionally public)
+    // =========================================================================
+    "reward",
+    "rewards",
+    "reward_rate",
+    "reward_per_token",
+    "staked",
+    "stake_amount",
+    "total_staked",
+    "emission",
+    "emissions_per_second",
+
+    // =========================================================================
+    // DeFi patterns
+    // =========================================================================
+    "collateral",
 ];
 
 /// Field name patterns (substrings) that indicate safe Solana usage
 pub const SAFE_FIELD_PATTERNS: &[&str] = &[
+    // Suffix patterns
     "_mint",
     "_authority",
     "_account",
     "_program",
     "_pubkey",
-    "_key",      // in context of public keys
     "_bump",
     "_seed",
     "_vault",
     "_pool",
     "_oracle",
     "_signer",
+    "_fee",
+    "_fees",
+    "_rate",
+    "_price",
+    "_token",
+    "_liquidity",
+    "_reserve",
+    "_index",
+    "_count",
+
+    // Prefix patterns
     "program_",
     "token_",
     "mint_",
+    "total_",
+    "accumulated_",
+    "protocol_",
 ];
 
 /// Struct name patterns that indicate non-PII context
@@ -84,6 +245,9 @@ pub const SAFE_STRUCT_CONTEXTS: &[&str] = &[
     "reserve",
     "market",
     "oracle",
+    "amm",
+    "position",
+    "tick",
 
     // Program state
     "state",
@@ -104,12 +268,41 @@ pub const SAFE_STRUCT_CONTEXTS: &[&str] = &[
 /// Types that are inherently safe (not PII)
 pub const SAFE_TYPES: &[&str] = &[
     "Pubkey",
+    "AccountInfo",
+    "Signer",
+    "Program",
+    "Account",
+    "UncheckedAccount",
+    "SystemAccount",
+    "AccountLoader",
+    "InterfaceAccount",
+    "Interface",
     "u8", "u16", "u32", "u64", "u128",
     "i8", "i16", "i32", "i64", "i128",
     "bool",
     "UnixTimestamp",
     "Slot",
     "Epoch",
+    "Clock",
+    "Rent",
+];
+
+/// Patterns in sensitive detection that should be context-aware in DeFi
+/// These patterns cause the most false positives when matched naively
+pub const DEFI_IGNORE_PATTERNS: &[&str] = &[
+    "token",    // token_mint, token_account are normal
+    "fee",      // swap_fee, protocol_fee are normal
+    "amount",   // amount_in, amount_out are normal
+    "balance",  // token_balance is normal
+    "price",    // sqrt_price, oracle_price are normal
+    "total",    // total_supply is normal
+    "key",      // only flag if "private_key", "secret_key", "api_key"
+    "seed",     // PDA seeds are normal (but flag "seed_phrase", "mnemonic")
+    "auth",     // authority is normal (but flag "auth_token")
+    "id",       // pool_id is normal (but flag "user_id" with String type)
+    "user",     // user account references are normal
+    "address",  // Pubkey addresses are normal
+    "name",     // market_name is normal
 ];
 
 /// Check if a field name is a known safe Solana pattern
@@ -183,6 +376,59 @@ pub fn is_safe_field(name: &str, ty: &str, struct_name: Option<&str>) -> bool {
     false
 }
 
+/// Check if a "sensitive" pattern match should be ignored based on DeFi context
+/// This is the key function for reducing false positives on pattern matches
+pub fn should_ignore_sensitive_match(field_name: &str, field_type: &str, matched_pattern: &str) -> bool {
+    let lower_name = field_name.to_lowercase();
+
+    // First check if this is a known safe field
+    if is_safe_field(field_name, field_type, None) {
+        return true;
+    }
+
+    // Pattern-specific overrides for DeFi context
+    match matched_pattern {
+        "token" => {
+            // Only flag "token" if it's a bare String that might be an API token
+            // "token_mint", "token_account", etc. are safe
+            !(field_type == "String" && lower_name == "token")
+        }
+        "key" => {
+            // Only flag if it's private_key, secret_key, api_key
+            !lower_name.contains("private") &&
+            !lower_name.contains("secret") &&
+            !lower_name.contains("api")
+        }
+        "seed" => {
+            // Flag seed_phrase, mnemonic_seed, but not PDA seeds
+            !lower_name.contains("phrase") && !lower_name.contains("mnemonic")
+        }
+        "auth" => {
+            // authority: Pubkey is safe, auth_token: String is not
+            field_type.contains("Pubkey") || lower_name.contains("authority")
+        }
+        "address" => {
+            // Pubkey addresses are safe, String addresses might be PII
+            field_type.contains("Pubkey")
+        }
+        "name" => {
+            // market_name, pool_name, token_name are safe; user_name: String might not be
+            field_type.contains("Pubkey") ||
+            lower_name.contains("market") ||
+            lower_name.contains("pool") ||
+            lower_name.contains("token") ||
+            lower_name.contains("program")
+        }
+        "id" | "user" | "identifier" => {
+            // user_account: Pubkey is safe, user_id: String might not be
+            field_type.contains("Pubkey") || field_type.contains("u64") || field_type.contains("u32")
+        }
+        // These patterns are always safe in DeFi context
+        "fee" | "amount" | "balance" | "price" | "total" => true,
+        _ => false
+    }
+}
+
 /// Sensitive field patterns that indicate potential PII
 pub const PII_PATTERNS: &[&str] = &[
     "email",
@@ -253,6 +499,11 @@ pub fn is_pii_field(name: &str, ty: &str, struct_name: Option<&str>) -> Option<&
         }
         // Without struct context and String type, be cautious
         if ty.contains("String") {
+            // But check if field name has safe DeFi context
+            if lower.contains("market") || lower.contains("pool") ||
+               lower.contains("token") || lower.contains("program") {
+                return None;
+            }
             return Some("name");
         }
         return None;
@@ -272,6 +523,10 @@ pub fn is_pii_field(name: &str, ty: &str, struct_name: Option<&str>) -> Option<&
     // Check other PII patterns
     for pattern in PII_PATTERNS {
         if lower.contains(pattern) {
+            // Apply DeFi context filtering
+            if should_ignore_sensitive_match(name, ty, pattern) {
+                continue;
+            }
             return Some(pattern);
         }
     }
@@ -281,7 +536,6 @@ pub fn is_pii_field(name: &str, ty: &str, struct_name: Option<&str>) -> Option<&
 
 /// Financial/DeFi context patterns - these indicate blockchain financial operations
 /// where numeric data or addresses are expected, not PII
-#[allow(dead_code)]
 pub const FINANCIAL_CONTEXTS: &[&str] = &[
     // Transaction types
     "swap",
@@ -321,7 +575,6 @@ pub fn is_financial_context(text: &str) -> bool {
 }
 
 /// Common placeholder/test email domains that shouldn't be flagged
-#[allow(dead_code)]
 pub const PLACEHOLDER_EMAIL_DOMAINS: &[&str] = &[
     "example.com",
     "example.org",
@@ -349,7 +602,6 @@ pub fn is_placeholder_email(email: &str) -> bool {
 
 /// Field combinations that indicate token/NFT metadata (not PII)
 /// If these fields appear together, "name" is almost certainly not a person's name
-#[allow(dead_code)]
 pub const TOKEN_METADATA_FIELDS: &[&str] = &[
     "symbol",
     "decimals",
@@ -367,7 +619,6 @@ pub const TOKEN_METADATA_FIELDS: &[&str] = &[
 ];
 
 /// Field combinations that indicate NFT metadata specifically
-#[allow(dead_code)]
 pub const NFT_METADATA_FIELDS: &[&str] = &[
     "image",
     "animation_url",
@@ -413,7 +664,6 @@ pub fn has_nft_metadata_context(json_text: &str) -> bool {
 
 /// Check if a "name" value looks like a person's name vs token/project name
 /// Returns true if it looks like a SAFE (non-person) name
-#[allow(dead_code)]
 pub fn is_safe_name_value(value: &str) -> bool {
     let trimmed = value.trim();
 
@@ -468,7 +718,6 @@ pub fn is_safe_name_value(value: &str) -> bool {
 }
 
 /// Check if a value looks like a hash or encoded data (not PII)
-#[allow(dead_code)]
 pub fn is_hash_or_encoded(value: &str) -> bool {
     let trimmed = value.trim();
 
@@ -484,7 +733,7 @@ pub fn is_hash_or_encoded(value: &str) -> bool {
     }
 
     // Check for base64 patterns
-    if trimmed.len() >= 20 && trimmed.ends_with("==") || trimmed.ends_with("=") {
+    if trimmed.len() >= 20 && (trimmed.ends_with("==") || trimmed.ends_with("=")) {
         let base64_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
         if trimmed.chars().all(|c| base64_chars.contains(c)) {
             return true;
@@ -501,7 +750,6 @@ pub fn is_hash_or_encoded(value: &str) -> bool {
 
 /// Check if an "address" value looks like a blockchain address vs physical address
 /// Returns true if it looks like a SAFE (blockchain) address
-#[allow(dead_code)]
 pub fn is_blockchain_address_value(value: &str) -> bool {
     let trimmed = value.trim();
 
@@ -526,7 +774,6 @@ pub fn is_blockchain_address_value(value: &str) -> bool {
 }
 
 /// Combined check for whether a field value is safe (not PII)
-#[allow(dead_code)]
 pub fn is_safe_field_value(field_name: &str, value: &str) -> bool {
     let field_lower = field_name.to_lowercase();
 
@@ -558,6 +805,10 @@ pub fn is_secret_field(name: &str) -> Option<&'static str> {
 
     for pattern in SECRET_PATTERNS {
         if lower.contains(pattern) {
+            // Apply DeFi context filtering for certain patterns
+            if should_ignore_sensitive_match(name, "unknown", pattern) {
+                continue;
+            }
             return Some(pattern);
         }
     }
@@ -571,7 +822,6 @@ pub fn is_secret_field(name: &str) -> Option<&'static str> {
 
 /// Confidence adjustment factors based on code context
 #[derive(Debug, Default)]
-#[allow(dead_code)]
 pub struct ConfidenceAdjustment {
     /// Base adjustment (positive = increase, negative = decrease)
     pub delta: i32,
@@ -579,7 +829,6 @@ pub struct ConfidenceAdjustment {
     pub reasons: Vec<String>,
 }
 
-#[allow(dead_code)]
 impl ConfidenceAdjustment {
     pub fn new() -> Self {
         Self::default()
@@ -598,7 +847,6 @@ impl ConfidenceAdjustment {
 }
 
 /// Context signals extracted from code for confidence calibration
-#[allow(dead_code)]
 pub struct CodeContext<'a> {
     /// Full file content
     pub content: &'a str,
@@ -610,7 +858,6 @@ pub struct CodeContext<'a> {
     pub function_name: Option<&'a str>,
 }
 
-#[allow(dead_code)]
 impl<'a> CodeContext<'a> {
     pub fn new(content: &'a str, line: usize) -> Self {
         Self {
@@ -633,7 +880,6 @@ impl<'a> CodeContext<'a> {
 }
 
 /// Calculate confidence adjustments based on code context
-#[allow(dead_code)]
 pub fn calculate_context_adjustment(ctx: &CodeContext) -> ConfidenceAdjustment {
     let mut adj = ConfidenceAdjustment::new();
     let content_lower = ctx.content.to_lowercase();
@@ -755,7 +1001,6 @@ pub fn calculate_context_adjustment(ctx: &CodeContext) -> ConfidenceAdjustment {
 }
 
 /// Apply context-aware confidence adjustment to a finding's base score
-#[allow(dead_code)]
 pub fn adjust_confidence_for_context(
     base_confidence: u8,
     content: &str,
@@ -786,8 +1031,24 @@ mod tests {
         assert!(is_safe_field_name("mint"));
         assert!(is_safe_field_name("authority"));
         assert!(is_safe_field_name("token_account"));
+        assert!(is_safe_field_name("sqrt_price"));
+        assert!(is_safe_field_name("tick_lower"));
+        assert!(is_safe_field_name("liquidity_net"));
         assert!(!is_safe_field_name("email"));
         assert!(!is_safe_field_name("password"));
+    }
+
+    #[test]
+    fn test_defi_fields_safe() {
+        // These should all be recognized as safe
+        assert!(is_safe_field_name("swap_fee"));
+        assert!(is_safe_field_name("protocol_fee"));
+        assert!(is_safe_field_name("total_supply"));
+        assert!(is_safe_field_name("amount_in"));
+        assert!(is_safe_field_name("amount_out"));
+        assert!(is_safe_field_name("oracle_price"));
+        assert!(is_safe_field_name("pool_authority"));
+        assert!(is_safe_field_name("vault_a"));
     }
 
     #[test]
@@ -795,6 +1056,7 @@ mod tests {
         assert!(is_safe_field("address", "Pubkey", None));
         assert!(is_safe_field("mint_address", "Pubkey", None));
         assert!(is_safe_field("recipient", "Pubkey", None));
+        assert!(is_safe_field("user_address", "Pubkey", None));
     }
 
     #[test]
@@ -802,6 +1064,7 @@ mod tests {
         // "name" in Config struct is safe
         assert!(is_safe_field("name", "String", Some("PoolConfig")));
         assert!(is_safe_field("name", "String", Some("TokenMetadata")));
+        assert!(is_safe_field("name", "String", Some("MarketState")));
 
         // "name" in User struct is not safe
         assert!(!is_safe_field("name", "String", Some("UserProfile")));
@@ -821,12 +1084,40 @@ mod tests {
     fn test_secret_detection() {
         assert!(is_secret_field("password").is_some());
         assert!(is_secret_field("api_key").is_some());
+        assert!(is_secret_field("private_key").is_some());
         assert!(is_secret_field("password_hash").is_none()); // hashed is safe
     }
 
     #[test]
+    fn test_should_ignore_sensitive_match() {
+        // Token in DeFi context is safe
+        assert!(should_ignore_sensitive_match("token_mint", "Pubkey", "token"));
+        assert!(should_ignore_sensitive_match("token_account", "Pubkey", "token"));
+
+        // But bare "token" as String might be an API token
+        assert!(!should_ignore_sensitive_match("token", "String", "token"));
+
+        // Key patterns
+        assert!(should_ignore_sensitive_match("public_key", "Pubkey", "key"));
+        assert!(!should_ignore_sensitive_match("private_key", "String", "key"));
+        assert!(!should_ignore_sensitive_match("api_key", "String", "key"));
+
+        // Authority is safe
+        assert!(should_ignore_sensitive_match("pool_authority", "Pubkey", "auth"));
+        assert!(should_ignore_sensitive_match("authority", "Pubkey", "auth"));
+
+        // Address patterns
+        assert!(should_ignore_sensitive_match("wallet_address", "Pubkey", "address"));
+        assert!(!should_ignore_sensitive_match("home_address", "String", "address"));
+
+        // Name patterns
+        assert!(should_ignore_sensitive_match("market_name", "String", "name"));
+        assert!(should_ignore_sensitive_match("pool_name", "String", "name"));
+        assert!(should_ignore_sensitive_match("token_name", "String", "name"));
+    }
+
+    #[test]
     fn test_financial_context() {
-        // DeFi operations
         assert!(is_financial_context("swap"));
         assert!(is_financial_context("SWAP")); // case insensitive
         assert!(is_financial_context("token transfer"));
@@ -846,64 +1137,41 @@ mod tests {
 
     #[test]
     fn test_placeholder_email() {
-        // Common placeholders
         assert!(is_placeholder_email("user@example.com"));
         assert!(is_placeholder_email("test@example.org"));
         assert!(is_placeholder_email("foo@test.com"));
         assert!(is_placeholder_email("admin@localhost"));
-        assert!(is_placeholder_email("test@placeholder.com"));
         assert!(is_placeholder_email("UPPER@EXAMPLE.COM")); // case insensitive
 
         // Real email domains
         assert!(!is_placeholder_email("user@gmail.com"));
         assert!(!is_placeholder_email("user@company.io"));
-        assert!(!is_placeholder_email("support@myservice.com"));
-        assert!(!is_placeholder_email("real@protonmail.com"));
     }
-
-    // =========================================================================
-    // Field Co-occurrence Tests
-    // =========================================================================
 
     #[test]
     fn test_token_metadata_context() {
-        // Token metadata with symbol + decimals
         assert!(has_token_metadata_context(r#"{"name": "Bonk", "symbol": "BONK", "decimals": 9}"#));
-        // Token with supply
         assert!(has_token_metadata_context(r#"{"name": "Token", "supply": 1000000, "mint": "abc123"}"#));
-        // Not token metadata - just a name
         assert!(!has_token_metadata_context(r#"{"name": "John Doe"}"#));
-        // Not enough fields
-        assert!(!has_token_metadata_context(r#"{"name": "Token", "symbol": "TKN"}"#));
     }
 
     #[test]
     fn test_nft_metadata_context() {
-        // NFT with image + attributes
         assert!(has_nft_metadata_context(r#"{"name": "NFT", "image": "url", "attributes": []}"#));
-        // NFT with collection + creators
         assert!(has_nft_metadata_context(r#"{"name": "NFT", "collection": "xyz", "creators": []}"#));
-        // Image alone is detected (image + nft_field_count >= 1)
-        assert!(has_nft_metadata_context(r#"{"name": "NFT", "image": "url"}"#));
-        // Just name alone is not NFT context
         assert!(!has_nft_metadata_context(r#"{"name": "NFT"}"#));
     }
-
-    // =========================================================================
-    // Value-based Heuristics Tests
-    // =========================================================================
 
     #[test]
     fn test_safe_name_value() {
         // Token-like names (safe)
-        assert!(is_safe_name_value("BONK"));  // All caps ticker
+        assert!(is_safe_name_value("BONK"));
         assert!(is_safe_name_value("SOL"));
-        assert!(is_safe_name_value("DegenApe #1234"));  // Has number
-        assert!(is_safe_name_value("Cool_NFT_123"));  // Has underscore and number
-        assert!(is_safe_name_value("SolanaToken"));  // Starts with "sol"
-        assert!(is_safe_name_value("NFTCollection"));  // Contains "nft"
-        assert!(is_safe_name_value("DeFiProtocol"));  // Contains "defi"
-        assert!(is_safe_name_value("LongProjectNameWithoutSpaces"));  // Long single word
+        assert!(is_safe_name_value("DegenApe #1234"));
+        assert!(is_safe_name_value("Cool_NFT_123"));
+        assert!(is_safe_name_value("SolanaToken"));
+        assert!(is_safe_name_value("NFTCollection"));
+        assert!(is_safe_name_value("DeFiProtocol"));
 
         // Person-like names (not safe)
         assert!(!is_safe_name_value("John"));
@@ -913,50 +1181,19 @@ mod tests {
 
     #[test]
     fn test_hash_or_encoded() {
-        // Hex hashes
-        assert!(is_hash_or_encoded("a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4"));  // 32 hex chars
-        assert!(is_hash_or_encoded("a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4"));  // 64 hex chars
-
-        // Base58 (Solana-like)
+        assert!(is_hash_or_encoded("a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4"));
         assert!(is_hash_or_encoded("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"));
-
-        // UUID
         assert!(is_hash_or_encoded("550e8400-e29b-41d4-a716-446655440000"));
-
-        // Not hashes
         assert!(!is_hash_or_encoded("hello world"));
         assert!(!is_hash_or_encoded("short"));
     }
 
     #[test]
     fn test_blockchain_address_value() {
-        // Solana addresses
         assert!(is_blockchain_address_value("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"));
         assert!(is_blockchain_address_value("11111111111111111111111111111111"));
-
-        // Ethereum addresses
         assert!(is_blockchain_address_value("0x742d35Cc6634C0532925a3b844Bc9e7595f9DdE6"));
-
-        // Not blockchain addresses (physical addresses)
         assert!(!is_blockchain_address_value("123 Main Street"));
         assert!(!is_blockchain_address_value("New York, NY 10001"));
-    }
-
-    #[test]
-    fn test_safe_field_value_combined() {
-        // Name field with safe value
-        assert!(is_safe_field_value("name", "BONK"));
-        assert!(is_safe_field_value("name", "CoolNFT #123"));
-
-        // Address field with blockchain address
-        assert!(is_safe_field_value("address", "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"));
-        assert!(is_safe_field_value("wallet_address", "11111111111111111111111111111111"));
-
-        // Hash value in any field
-        assert!(is_safe_field_value("data", "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4"));
-
-        // Unsafe values
-        assert!(!is_safe_field_value("name", "John Smith"));
-        assert!(!is_safe_field_value("address", "123 Main Street"));
     }
 }

@@ -19,11 +19,11 @@ MAGENTA='\033[0;35m'
 NC='\033[0m'
 
 # =============================================================================
-# HARDCODED API KEYS (for demo recording only - remove before committing!)
+# API KEYS - Set these environment variables before running
 # =============================================================================
-export QUICKNODE_RPC_URL='your-quicknode-url-here'
-export HELIUS_BASE_URL='https://api.helius.xyz'
-export HELIUS_API_KEY='your-helius-api-key-here'
+# export QUICKNODE_RPC_URL='your-quicknode-url-here'
+# export HELIUS_BASE_URL='https://api.helius.xyz'
+# export HELIUS_API_KEY='your-helius-api-key-here'
 
 # =============================================================================
 # PRE-BUILD TESTS (before recording starts)
