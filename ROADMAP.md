@@ -102,21 +102,21 @@ if score < 70 { return Err("Security threshold not met") }
 
 ---
 
-## The Real Goal
+## Vision
 
-Not just a CLI tool. A security layer for the entire Solana ecosystem.
+Custos is the security infrastructure layer for Solana.
 
-**What we're building:**
-1. Default security tool (every dev runs it)
-2. Infrastructure for others (SDK, API, integrations)
-3. Platform for ecosystem (marketplace, scoring, insurance)
+**Product Trajectory:**
+1. **Developer Tool** — The default pre-audit check for every Anchor project
+2. **Platform** — SDK, APIs, and integrations that let others build on our analysis engine
+3. **Ecosystem Standard** — Scoring, verification, and compliance infrastructure for DeFi
 
-**What we're NOT building:**
-- Another dashboard with pretty graphs
-- Generic security tool that works on "any blockchain"
-- Consulting-only business (tools scale, consulting doesn't)
+**Focus:**
+- Solana-native, not chain-agnostic
+- Product-first, not services-first
+- Developer adoption, then enterprise
 
-The exploits are preventable. Chossing the right tooling goes a long way in helping prevent them.
+$500M+ has been lost to preventable exploits. Better tooling changes that.
 
 ---
 

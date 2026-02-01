@@ -1,4 +1,4 @@
-# Custos Full Refactor Plan — Production-Grade Idiomatic Rust
+# Custos Full Refactor Plan: Production-Grade Idiomatic Rust
 
 ## Overview
 
